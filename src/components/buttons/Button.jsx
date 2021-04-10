@@ -42,7 +42,7 @@ props.uiStyle === "login" &&
 
 css`
 
-background: #03a9f4;
+background: #f15b29;
 
 color: white;
 

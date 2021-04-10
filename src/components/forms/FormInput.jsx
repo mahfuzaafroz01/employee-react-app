@@ -56,7 +56,7 @@ const FormInput = (props) => {
 
 return (
 
-<FormInputStyles>
+<FormInputStyles {...props}>
 
 <label htmlFor={props.id}>{props.label}</label>
 
