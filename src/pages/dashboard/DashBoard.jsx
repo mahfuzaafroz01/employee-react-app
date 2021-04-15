@@ -1,7 +1,14 @@
 import AuthContext from './../../auth/AuthContext';
+
+import ViewAllPanel from './panels/ViewAllPanel';
+import EditPanel from './panels/EditPanel';
+import DeletePanel from './panels/DeletePanel';
+import AddPanel from './panels/AddPanel'
+
 import React, {useContext, useState} from 'react';
 import styled from 'styled-components'
-import {Redirect} from 'react-router-dom'
+import {Redirect, Link, useRouteMatch, Switch, Route} from 'react-router-dom'
+
  
 
 
@@ -25,6 +32,10 @@ h1{
     font-weight:bold;
 
 }
+a{
+    text-decoration: none;
+    font-size: 14px;
+}
 li{
     opacity:0.7;
     font-size: 12px;
@@ -40,8 +51,10 @@ background-color: #f4f4f4;
 `
 const DashBoard = (props) => {
    const auth = useContext(AuthContext)
-   console.log("Dashboard Render")
-   console.log(auth)
+   const {path, url} = useRouteMatch()
+
+   
+   
   
     if(auth.isUser){
         return(
@@ -53,15 +66,20 @@ const DashBoard = (props) => {
                 </header>
            
             <ul>
-                <li>view all</li>
-                <li>add new employee</li>
-                <li>edit an employee</li>
-                <li>delete an employee</li>
+                <li><Link to={`${url}`}>View All</Link></li>
+                <li><Link to={`${url}/add`}>Add Content</Link></li>
+                <li><Link to={`${url}/edit`}>Edit Content</Link></li>
+                <li><Link to={`${url}/delete`}>Remove Content</Link></li>
               
             </ul>
             </SideBar>
             <Panels>
-                
+                <Switch>
+                    <Route exact path={path}><ViewAllPanel/></Route>
+                    <Route path={`${path}/add`}><AddPanel/></Route>
+                    <Route path={`${path}/edit`}><EditPanel/></Route>
+                    <Route path={`${path}/delete`}><DeletePanel/></Route>
+                </Switch>
             </Panels>   
     
         </DashBoardStyles>
